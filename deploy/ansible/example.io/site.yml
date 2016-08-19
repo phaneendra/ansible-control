@@ -1,36 +1,11 @@
 ---
 # This playbook deploys the whole application stack in this site.
 
-# - name: configure and deploy the webservers
-#   hosts: webservers
-#   remote_user: ansible
-#   become: yes
-#   become_user: root
-#
-#   roles:
-#     - { role: ansible-nginx,            tags: ["nginx"] }
-
-- name: "Test ansible "
-  hosts: local
-  connection: local
-  tasks:
-    - debug: msg="It works"
-
-
-
-- name: "Test remote ansible"
+- name: configure and deploy the webservers
   hosts: webservers
   remote_user: ansible
   become: yes
   become_user: root
 
-  # sample tasks to ensure things *just work*
-  tasks:
-    - name: view current distro
-      shell: cat /etc/*-release
-      register: distro
-    - debug: var=distro
-
-    # perform an action that requires root access
-    - name: create user foo
-      user: name=foo
+  roles:
+    - { role: ansible-nginx,            tags: ["nginx"] }

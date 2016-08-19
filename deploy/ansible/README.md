@@ -1,11 +1,9 @@
 # Modern Web Deployment Workflow
 
-<div class="by-bocoup">Brought to you by <a href="https://bocoup.com/"><img src="bocoup.png" width="100px"></a></div>
-
 This collection of Ansible playbooks have been designed to simplify deployment
-of a modern website or web app using Vagrant, Ubuntu, nginx and HTTP/HTTPS. Many
-tasks have been separated into separate roles, and as much configuration as
-possible has been abstracted into external variables.
+of a modern website or web app using Docker, Vagrant, CentOS, nginx and 
+HTTP/HTTPS. Many tasks have been separated into separate roles, and as much
+configuration as possible has been abstracted into external variables.
 
 High-level benefits include:
 
@@ -17,8 +15,8 @@ High-level benefits include:
 * Updates to server configuration can be made in a matter of seconds.
 * Most server configuration and code updates can be made with zero server
   downtime.
-* Code can be tested locally in Vagrant before being deployed to a production
-  server.
+* Code can be tested locally in Vagrant or Docker before being deployed to a 
+  production server.
 * Code can be tested on a staging server for QA or final testing before being
   deployed to a production server.
 * Server configuration and project deployment can be made to scale to any number
@@ -190,6 +188,63 @@ variables](#ansible-variables).
 Ansible playbooks are human-readable documents that describe and configure the
 tasks that Ansible will run on a remote server. They should be idempotent,
 allowing them to be run multiple times with the same result each time.
+
+```
+-> site
+  -> provision
+    -> base
+      # install (all)
+        custom yum.conf
+        ensure external repos are installed
+        ensure repos are enabled
+        ensure specified packages are installed
+        ensure specified packages are not installed
+        ensure all updates are installed
+      # services (all)
+        ensure ssh daemon is installed
+        ensure specific services are running
+        ensure specific services are not running
+      # users (all)
+        Add groups
+        Add users from IAM
+        Add users local dev only
+        Sync users public key from IAM
+      # os hardening (all)
+      # ssh hardening (all)
+    -> web
+      -> nginx
+      -> apache
+      -> ihs
+    -> app
+      -> jboss
+      -> websphere
+      -> nodejs
+    -> cache
+      -> redis
+        configure aws elastic cache
+    -> db
+      -> mysql
+          configure aws rds msql
+    -> search
+      -> elastic-search
+    -> log
+      -> logstash
+      -> logstash-forwarder
+    -> monitor
+      -> 
+  -> configure
+    # base
+      ensure hostname is present in hostfile
+      ensure basic filesystems are present
+    -> web
+      # nginx-tuned
+      # nginx-vhost
+      # ihs-tuned
+      # ihs-vhost
+      # apache-tuned
+      # apache-vhost
+  -> deploy
+```
 
 The following playbooks are included in this workflow:
 
