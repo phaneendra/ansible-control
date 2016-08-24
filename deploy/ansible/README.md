@@ -182,61 +182,87 @@ Ansible playbooks are human-readable documents that describe and configure the
 tasks that Ansible will run on a remote server. They should be idempotent,
 allowing them to be run multiple times with the same result each time.
 
+legend:
+playbooks : [playbook name]
+Role : <Role name> (hosts)
+Task : * task name
+
 ```
--> site
-  -> provision
-    -> base
-      # install (all)
-        custom yum.conf
-        ensure external repos are installed
-        ensure repos are enabled
-        ensure specified packages are installed
-        ensure specified packages are not installed
-        ensure all updates are installed
-      # services (all)
-        ensure ssh daemon is installed
-        ensure specific services are running
-        ensure specific services are not running
-      # users (all)
-        Add groups
-        Add users from IAM
-        Add users local dev only
-        Sync users public key from IAM
-      # os hardening (all)
-      # ssh hardening (all)
-    -> web
-      -> nginx
-      -> apache
-      -> ihs
-    -> app
-      -> jboss
-      -> websphere
-      -> nodejs
-    -> cache
-      -> redis
+-> [site.yml]
+  -> [provision.yml]
+    -> [aws.yml]
+      <vpc-info> (local) # gather information regarding vpc
+        * get subnet
+
+    -> [base.yml]
+      <install> (all)
+        * custom yum.conf
+        * ensure external repos are installed
+        * ensure repos are enabled
+        * ensure specified packages are installed
+        * ensure specified packages are not installed
+        * ensure all updates are installed
+      <services> (all)
+        * ensure ssh daemon is installed
+        * ensure specific services are running
+        * ensure specific services are not running
+      <users> (all)
+        * add groups
+        * add users from IAM
+        * add users local dev only
+        * sync users public key from IAM
+      <os hardening> (all)
+      <ssh hardening> (all)
+
+    -> [web.yml]
+      <nginx> (webservers)
+      <apache> (webservers)
+      <ihs> (webservers)
+
+    -> [app.yml]
+      <jboss> (appservers)
+      <websphere> (appservers)
+      <nodejs> (appservers)
+
+    -> [cache.yml]
+      <redis> (cacheservers)
         configure aws elastic cache
-    -> db
-      -> mysql
+
+    -> [db.yml]
+      <mysql> (dbserver)
           configure aws rds msql
-    -> search
-      -> elastic-search
-    -> log
-      -> logstash
-      -> logstash-forwarder
-    -> monitor
-      ->
-  -> configure
-    # base
-      ensure hostname is present in hostfile
-      ensure basic filesystems are present
-    -> web
-      # nginx-tuned
-      # nginx-vhost
-      # ihs-tuned
-      # ihs-vhost
-      # apache-tuned
-      # apache-vhost
-  -> deploy
+
+    -> [search.yml]
+      <elastic-search> (searchserver)
+
+    -> [log.yml]
+      <logstash>
+      <logstash-forwarder>
+
+    -> [monitor.yml]
+      <>
+
+    -> [build.yml]
+      <jenkins>
+
+  -> [configure.yml]
+    <common>
+      * ensure hostname is present in hostfile
+      * ensure basic filesystems are present
+
+    -> [configure-web.yml]
+      <nginx-tuned>
+      <nginx-vhost>
+      <ihs-tuned>
+      <ihs-vhost>
+      <apache-tuned>
+      <apache-vhost>
+
+    -> [configure-app.yml]
+      <jboss-tuning>
+      <jboss-vhosts>
+
+  -> [deploy.yml]
 ```
 
 The following playbooks are included in this workflow:
