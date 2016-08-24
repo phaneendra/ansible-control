@@ -1,7 +1,7 @@
 # Modern Web Deployment Workflow
 
 This collection of Ansible playbooks have been designed to simplify deployment
-of a modern website or web app using Docker, Vagrant, CentOS, nginx and 
+of a modern website or web app using Docker, Vagrant, CentOS, nginx and
 HTTP/HTTPS. Many tasks have been separated into separate roles, and as much
 configuration as possible has been abstracted into external variables.
 
@@ -15,7 +15,7 @@ High-level benefits include:
 * Updates to server configuration can be made in a matter of seconds.
 * Most server configuration and code updates can be made with zero server
   downtime.
-* Code can be tested locally in Vagrant or Docker before being deployed to a 
+* Code can be tested locally in Vagrant or Docker before being deployed to a
   production server.
 * Code can be tested on a staging server for QA or final testing before being
   deployed to a production server.
@@ -39,13 +39,6 @@ More specific benefits include:
 * SSL certs can be auto-generated for testing HTTPS in development.
 * Because the entire deployment workflow is comprised of Ansible playbooks and a
   Vagrantfile, it can be easily modified to meet any project's needs.
-
-Here are links to the official, original project home page, documentation, Git
-repository and wiki:
-
-* [Canonical home page & documentation](https://deployment-workflow.bocoup.com/)
-* [Canonical Git repository](https://github.com/bocoup/deployment-workflow/)
-* [Canonical wiki](https://github.com/bocoup/deployment-workflow/wiki)
 
 Notes:
 
@@ -231,7 +224,7 @@ allowing them to be run multiple times with the same result each time.
       -> logstash
       -> logstash-forwarder
     -> monitor
-      -> 
+      ->
   -> configure
     # base
       ensure hostname is present in hostfile

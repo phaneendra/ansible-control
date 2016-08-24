@@ -2,16 +2,14 @@
 # Project Specific
 ######################
 /dist
-/site/static/dist
 .tmp
 /www
 
-######################
 # ansible
-######################
 deploy/ansible/example.io/vpass
 deploy/ansible/example.io/site.retry
-deploy/ansible/example.io/galaxyroles
+deploy/ansible/example.io/imported-roles/*
+!deploy/ansible/example.io/imported-roles/README.md
 
 ######################
 # Node
